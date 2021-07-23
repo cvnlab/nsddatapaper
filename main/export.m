@@ -46,7 +46,7 @@
 %   input volume. So, the underlying data is unchanged, but there are flipping, permuting, and voxel shifting happening.
 %   See interpretation below. You can shift, flip, permute to match our canonical 0pt8 LPI space.
 %
-% - MNI template is [182 218 182]. World itk 0,0,0 corresponds to voxel coordinates (91,127,73) in RPI.
+% - MNI template is [182 218 182]. World units (ITK) 0,0,0 corresponds to voxel coordinates (i.e. "Image units") (91,127,73) in RPI.
 %
 % remember difference wrt exported betas:
 % - brain mask, int16, volfun orientation
@@ -905,8 +905,6 @@ save(file0,'hrfs','-v7.3');
 
 %% %%%%%%% DESIGN MATRICES (NSD)
 
-%% hm, need to update for nsdimagery, etc.!!!!!!!!!!
-
 % setup
 nsdsetup;
 
@@ -979,8 +977,11 @@ isequal(test3,test4)  % check trial onsets in tsv is same as in expdesign.mat
 
 %% %%%%%%% DESIGN MATRICES (FLOC, NSDSYNTHETIC, NSDIMAGERY)
 
+% history:
+% - 2021/07/23 - rerun the nsdsynthetic to fix a bug. regenerated the .tsv files.
+
 % ran 2, but revisit??? [separate by task??]
-% 3 is a work in progress
+% 3 is a work in progress!!
 
 % setup
 nsdsetup;
@@ -1037,6 +1038,7 @@ for subjix=1:8, subjix
             ix = 0;
           else
             ix = a1.stimorder(cnt);  % 1-284   (unique distinct images!)
+            cnt = cnt + 1;
           end
           allruns{rr}(qq) = ix;
         end
