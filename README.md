@@ -1,6 +1,8 @@
 # nsddatapaper
 
-This folder contains an archive of code used in the manuscript "A massive 7T fMRI dataset to bridge cognitive and computational neuroscience", which is informally known as the Natural Scenes Dataset (NSD) data paper.
+This folder contains an archive of code used in the manuscript "A massive 7T 
+fMRI dataset to bridge cognitive neuroscience and artificial intelligence", 
+which is informally known as the Natural Scenes Dataset (NSD) data paper.
 
 ================= Part 1 (Author: Kendrick Kay)
 
@@ -48,7 +50,11 @@ Extended Data Figure 9: PARAMETERSnotes.m
 Supplementary Videos 1-10: INSPECTIONS
 ```
 
-================= Part 2 (Author: Brad Caron)
+================= Part 2 (Author: Matthias Nau)
+
+Eyetracking pre-processing and analysis code is available at main/nsd_et*.m
+
+================= Part 3 (Author: Brad Caron)
 
 Code scripts used to analyze the diffusion data are freely available on GitHub 
 via the links provided in the "Cloud processing via brainlife.io" section of
@@ -58,17 +64,17 @@ diffusion processing can be found on GitHub at https://github.com/bacaron/nsd-an
 Figures related to the diffusion analysis include
 Extended Data Figure 6 and Supplementary Figure 5.
 
-================= Part 3 (Author: Ben Hutchinson)
+================= Part 4 (Author: Ben Hutchinson)
 
 "nsd_recog" - This folder contains code for the behavioral analysis
               shown in Figure 4A.
 
-================= Part 4 (Author: Ian Charest)
+================= Part 5 (Author: Ian Charest)
 
 The code for the representational similarity analysis shown in Figure 5
 is freely available at https://github.com/Charestlab/nsddatapaper_rsa
 
-================= Part 5 (Author: Ghislain St-Yves)
+================= Part 6 (Author: Ghislain St-Yves)
 
 The code for the neural network analyses shown in Figure 6 and 
 Extended Data Figure 10 will be made available upon manuscript acceptance.
