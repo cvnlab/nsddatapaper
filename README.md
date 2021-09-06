@@ -77,4 +77,4 @@ is freely available at https://github.com/Charestlab/nsddatapaper_rsa
 ================= Part 6 (Author: Ghislain St-Yves)
 
 The code for the neural network analyses shown in Figure 6 and 
-Extended Data Figure 10 will be made available upon manuscript acceptance.
+Extended Data Figure 10 are available at https://github.com/styvesg/nsd.
