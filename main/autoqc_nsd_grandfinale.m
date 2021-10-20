@@ -91,8 +91,8 @@ case {'structurals'}
   mkdirquiet(outputdir);
 
   % define
-  typs = {'T1' 'T2' 'EPIsyn' 'SWI' 'TOF'};
-  namelabels = {'T1 ' 'T2 ' 'EPI' 'SWI' 'TOF'};
+  typs = {'T1' 'T2' 'EPIsyn' 'SWI' 'TOF' 'DWI'};
+  namelabels = {'T1 ' 'T2 ' 'EPI' 'SWI' 'TOF' 'DWI'};
   
   % loop
   masterfile = {};

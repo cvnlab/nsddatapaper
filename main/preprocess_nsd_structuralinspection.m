@@ -4,7 +4,7 @@ function preprocess_nsd_structuralinspection(subjix)
 %
 % <subjix> is 1-8
 % 
-% write out some orthMID inspections of the T1, T2, EPI, SWI, TOF.
+% write out some orthMID inspections of the T1, T2, EPI, SWI, TOF, DWI.
 
 % setup
 nsdsetup;
@@ -13,8 +13,8 @@ outputdir2 = sprintf('%s/inspection',outputdir);
 mkdirquiet(outputdir2);
 
 % write out orthMID figure for inspection
-files = {'T1_1pt0_masked.nii.gz' 'T2_1pt0_masked.nii.gz' 'EPIaffine_Warped.nii.gz' 'EPIsyn_Warped.nii.gz' 'SWI_1pt0_masked.nii.gz' 'TOF_1pt0_masked.nii.gz'};
-prefixes = {'T1' 'T2' 'EPIaffine' 'EPIsyn' 'SWI' 'TOF'};
+files = {'T1_1pt0_masked.nii.gz' 'T2_1pt0_masked.nii.gz' 'EPIaffine_Warped.nii.gz' 'EPIsyn_Warped.nii.gz' 'SWI_1pt0_masked.nii.gz' 'TOF_1pt0_masked.nii.gz' 'DWI_1pt0.nii.gz'};
+prefixes = {'T1' 'T2' 'EPIaffine' 'EPIsyn' 'SWI' 'TOF' 'DWI'};
 for zz=1:length(files)
   file0 = sprintf('%s/%s',outputdir,files{zz});
   if ~exist(file0,'file')
