@@ -196,6 +196,10 @@ for p=1:3
   save_untouch_nii(a2,infile);
   outfile = [tempname '.nii'];
   unix_wrapper(sprintf('antsApplyTransforms --dimensionality 3 --input %s --reference-image %s --output %s --interpolation Linear --transform %s --transform %s --default-value 9999',infile,epifile,outfile,itrans1file,itrans2file));
+  %%%% BUG: the order of itrans1file and itrans2file above should be swapped.
+  %%%%      Luckily, the discrepancy in outputs, in this case, turns out to be
+  %%%%      quite small, so we will leave it as is. See NSD Data Manual for more details.
+  warning('ORDER SHOULD BE SWAPPED -- FOR DETAILS, SEE CODE');
   coords(:,:,:,p) = getfield(load_untouch_nii(outfile),'img');
   delete(infile); delete(outfile);
 end
