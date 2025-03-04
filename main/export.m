@@ -217,6 +217,51 @@ for subjix=setdiff(1:8,[1 2 3 4 5 6 8])
 
 end
 
+%% %%%%%%% BEHAVIORAL DATA (NSDSYNTHETIC)
+
+% setup
+nsdsetup;
+
+% define
+masterdir = '/home/surly-raid4/kendrick-data/nsd/nsddata/';
+headers = {'SUBJECT' 'RUN' 'TRIAL' '284ID' 'TIME'};
+
+% loop over subjects
+for subjix=1:8
+
+  % load in the prepared behavioral data
+  ppdir = regexprep(datadirs{nsdsyntheticsession(subjix)},'rawdata','ppdata');
+  file0 = [ppdir '/behavioralresults_nsdsynthetic.mat'];
+  if ~exist(file0,'file')
+    fprintf('MISSING: %s\n',file0);
+    continue;
+  end
+  a1 = load(file0);
+  trialinfo = a1.trialinfo;
+  
+  % ensure that the times are relative (de-identification)
+  trialinfo(:,5) = trialinfo(:,5) - floor(trialinfo(1,5));  % midnight of first day is time 0
+
+  % write it out
+  file0 = sprintf('~/Dropbox/KKTEMP/subj%02d_nsdsynthetic.tsv',subjix);
+  savetext(file0,sprintf([repmat('%s\t',[1 5-1]) '%s'],headers{:}));
+  dlmwrite(file0,trialinfo,'delimiter','\t','precision',20,'-append');
+
+end
+
+%% CONTINUE
+
+% loop over subjects
+for subjix=1:8
+  ppdir = regexprep(datadirs{nsdsyntheticsession(subjix)},'rawdata','ppdata');
+
+  a1 = load([ppdir '/behavioralresults_nsdsynthetic.mat']);
+  a1 = rmfield(a1,{'trialinfo' 'userkeys' 'userkeycounts' 'totaldur' 'badtimes'});
+  a1
+  save(sprintf('~/Dropbox/nsddata/bdata/nsdsynthetic/nsdsynthetic_subj%02d.mat',subjix),'-struct','a1');
+
+end
+
 %% %%%%%%% META [just for Word document]
 
 % Ran on July 6 2019.
