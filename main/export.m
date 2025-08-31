@@ -378,7 +378,7 @@ whichbetas = [1 2 3 4 5];
 % NOTE: use this for nsdimagery:
 wantvars = [1 0 1 1 1];
 wantvers = [1 2];    % 1 is high res, 2 is low res
-whichbetas = [5];
+whichbetas = [5 8];
 
 % NOTE: use this for nsdsynthetic:
 wantvars = [1 0 1 1 1];
@@ -391,7 +391,7 @@ volfun2 = @(x) flipdim(rotatematrix(x,1,2,-1),1);
 ivolfun = @(x) permute(flipdim(flipdim(x,1),2),[2 1 3 4 5 6 7 8 9 10]);
 masterdir =       '/home/surly-raid4/kendrick-data/nsd/nsddata/';
 masterdir_betas = '/home/surly-raid4/kendrick-data/nsd/nsddata_betas/';
-betanames = {'betas_assumehrf' 'betas_fithrf' 'betas_fithrf_GLMdenoise_RR' 'restingbetas_fithrf' 'nsdimagerybetas_fithrf' 'nsdsyntheticbetas_fithrf' 'nsdsyntheticbetas_fithrf_GLMdenoise_RR'};
+betanames = {'betas_assumehrf' 'betas_fithrf' 'betas_fithrf_GLMdenoise_RR' 'restingbetas_fithrf' 'nsdimagerybetas_fithrf' 'nsdsyntheticbetas_fithrf' 'nsdsyntheticbetas_fithrf_GLMdenoise_RR' 'nsdimagerybetas_fithrf_GLMdenoise_RR'};
 
 % loop
 for subjix=wantsubj
@@ -640,7 +640,7 @@ for subjix=wantsubj
           end
         end
 
-        isimagery = betaii==5;
+        isimagery = ismember(betaii,[5 8]);
 
         issynthetic = ismember(betaii,[6 7]);
 
@@ -683,6 +683,9 @@ for subjix=wantsubj
           case 4
             a2 = load(sprintf('%s/restingGLMdenoise_nsdBASICsingletrialfithrf.mat',glmdir), ...
                       'modelmd','R2','R2run');
+          case 8
+            a2 = load(sprintf('%s/GLMsingleoutputs/TYPED_FITHRF_GLMDENOISE_RR.mat',glmdir), ...
+                      'HRFindex','HRFindexrun','modelmd','R2','R2run','FRACvalue','scaleoffset')
           end
           mask0 = logical(ivolfun(getfield(load_untouch_nii(gunziptemp(sprintf('%s/ppdata/subj%02d/%s/brainmask.nii.gz', ...
                     nsddatadir,subjix,funcnames{ver}))),'img')));
@@ -746,14 +749,14 @@ for subjix=wantsubj
             nsd_savenifti(volfun(single(meanbeta(:,:,:,ss))),voxsize{ver},file0,tr(ver));  % FOR INCREMENTAL UPDATES, NEED TO LOAD SAVED FILE
 
             % HRFindex
-            if ismember(betaii,[2 3 5 6 7])
+            if ismember(betaii,[2 3 5 6 7 8])
               file0 = sprintf('%s/ppdata/subj%02d/%s/%s/HRFindex%s.nii.gz', ...
                               masterdir_betas,subjix,funcnames{ver},betaname,suffix0);
               nsd_savenifti(volfun(int16(a2.HRFindex)),voxsize{ver},file0,tr(ver));
             end
 
             % HRFindexrun
-            if ismember(betaii,[2 3 5 6 7])
+            if ismember(betaii,[2 3 5 6 7 8])
               file0 = sprintf('%s/ppdata/subj%02d/%s/%s/HRFindexrun%s.nii.gz', ...
                               masterdir_betas,subjix,funcnames{ver},betaname,suffix0);
               nsd_savenifti(volfun(int16(a2.HRFindexrun)),voxsize{ver},file0,tr(ver));
@@ -766,7 +769,7 @@ for subjix=wantsubj
 %               nsd_savenifti(volfun(int16(a2.LAMBDAindex)),voxsize{ver},file0,tr(ver));
 %             end
             % FRACvalue
-            if ismember(betaii,[3 7])
+            if ismember(betaii,[3 7 8])
               file0 = sprintf('%s/ppdata/subj%02d/%s/%s/FRACvalue%s.nii.gz', ...
                               masterdir_betas,subjix,funcnames{ver},betaname,suffix0);
               nsd_savenifti(volfun(single(a2.FRACvalue)),voxsize{ver},file0,tr(ver));
@@ -1026,7 +1029,7 @@ isequal(test3,test4)  % check trial onsets in tsv is same as in expdesign.mat
 % - 2021/07/23 - rerun the nsdsynthetic to fix a bug. regenerated the .tsv files.
 
 % ran 2, but revisit??? [separate by task??]
-% 3 is a work in progress!!
+% 3 is a work in progress!! still a work in progress. we recently changed up the matrix in order to get b3! (~Mar 2024)
 
 % setup
 nsdsetup;

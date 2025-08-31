@@ -14,6 +14,7 @@ nsdsetup;
 % FEB 10 2020: add in saving of nativesurface and re-run for that component (hdf5 format).
 % APR 19 2020: RE-RUN ALL nativesurface and fsaverage due to FS update
 % May 16 2020: RE-RUN [3 7] beta versions because of the b3 update.
+% Mar  2 2024: RUN 8 for nsdimagery b3.
 %
 % Notes:
 % - It is possible that some vertices have NaNs for all of their 750 betas.
@@ -22,7 +23,7 @@ nsdsetup;
 hemis = {'lh' 'rh'};
 nsubj = 8;
 ndepth = 3;
-betadirs = {'betas_assumehrf' 'betas_fithrf' 'betas_fithrf_GLMdenoise_RR' 'restingbetas_fithrf' 'nsdimagerybetas_fithrf' 'nsdsyntheticbetas_fithrf' 'nsdsyntheticbetas_fithrf_GLMdenoise_RR'};
+betadirs = {'betas_assumehrf' 'betas_fithrf' 'betas_fithrf_GLMdenoise_RR' 'restingbetas_fithrf' 'nsdimagerybetas_fithrf' 'nsdsyntheticbetas_fithrf' 'nsdsyntheticbetas_fithrf_GLMdenoise_RR' 'nsdimagerybetas_fithrf_GLMdenoise_RR'};
 fsavgdir = [nsd_datalocation '/freesurfer/fsaverage'];
 fsdir = [nsd_datalocation '/freesurfer/subj%02d'];
 
@@ -31,7 +32,7 @@ for subjix=1:8, subjix
   for bb=1:length(betadirs), bb
     for sess=1:40, sess
     
-      if bb==5
+      if ismember(bb,[5 8])
         if sess > 1
           continue;
         end

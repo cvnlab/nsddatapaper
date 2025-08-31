@@ -390,9 +390,20 @@ for zz=21:length(datadirs)
 
   % deal with nsdimagery
   if ismember(zz,[nsdimagerysession])
+    % ORIGINAL WAY: b2
     glm_nsdimagery(ppdirs{zz},'preprocessVER1SECONDSTAGE',   'designmatrixSINGLETRIAL_nsdimagery.mat',           ...
       '~/nsd/ppdata/hrfbasis.mat',          1,'glmdata'   ,'~/nsd/ppdata/hrfmanifold.mat');
     glm_nsdimagery(ppdirs{zz},'preprocessVER1SECONDSTAGELOW','designmatrixSINGLETRIAL_nsdimagery.mat', ...
+      '~/nsd/ppdata/hrfbasis.mat',          1,'glmdataLOW','~/nsd/ppdata/hrfmanifold.mat');
+    % UPDATED WAY: b3 (using the GLMsingle tool)
+    glm_nsdimagery2(ppdirs{zz},'preprocessVER1SECONDSTAGE',   'designmatrixUPDATED_nsdimagery.mat',           ...
+      '~/nsd/ppdata/hrfbasis.mat',          1,'glmdata'   ,'~/nsd/ppdata/hrfmanifold.mat');
+    glm_nsdimagery2(ppdirs{zz},'preprocessVER1SECONDSTAGELOW','designmatrixUPDATED_nsdimagery.mat',               ...
+      '~/nsd/ppdata/hrfbasis.mat',          1,'glmdataLOW','~/nsd/ppdata/hrfmanifold.mat');
+    % FINAL WAY: b3 (using the GLMsingle tool)
+    glm_nsdimagery2(ppdirs{zz},'preprocessVER1SECONDSTAGE',   'designmatrixFINAL_nsdimagery.mat',           ...
+      '~/nsd/ppdata/hrfbasis.mat',          1,'glmdata'   ,'~/nsd/ppdata/hrfmanifold.mat');
+    glm_nsdimagery2(ppdirs{zz},'preprocessVER1SECONDSTAGELOW','designmatrixFINAL_nsdimagery.mat',               ...
       '~/nsd/ppdata/hrfbasis.mat',          1,'glmdataLOW','~/nsd/ppdata/hrfmanifold.mat');
   end
 
